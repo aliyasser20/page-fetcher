@@ -4,6 +4,27 @@ const filePath = process.argv[3];
 const fs = require("fs");
 const colors = require("colors");
 
+const writeFile = (path, body) => fs.writeFile(path, body, (err) => {
+  if (err) throw new Error("Could not write file!".red);
+  console.log("The file has been saved!".green);
+});
+
+const askQuestion = (rl, body) => {
+  rl.question("File already exists! Would you like to overwrite the file? (Y/N) \t".red , (answer) => {
+    const generalizedAnswer = answer.toLowerCase();
+    if (generalizedAnswer === "y") {
+      console.log("File has been overwritten!".green);
+      writeFile(filePath, body);
+      rl.close();
+    } else if (generalizedAnswer === "n") {
+      console.log("Exited the app!".green);
+      rl.close();
+    } else {
+      askQuestion(rl, body);
+    }
+  });
+};
+
 const fetcher = (url) => {
   const splittedArray = filePath.split(".");
   if (splittedArray.length < 3) {
@@ -29,23 +50,3 @@ const fetcher = (url) => {
 
 fetcher(url);
 
-const writeFile = (path, body) => fs.writeFile(path, body, (err) => {
-  if (err) throw new Error("Could not write file!".red);
-  console.log("The file has been saved!".green);
-});
-
-const askQuestion = (rl, body) => {
-  rl.question("File already exists! Would you like to overwrite the file? (Y/N) \t".red , (answer) => {
-    const generalizedAnswer = answer.toLowerCase();
-    if (generalizedAnswer === "y") {
-      console.log("File has been overwritten!".green);
-      writeFile(filePath, body);
-      rl.close();
-    } else if (generalizedAnswer === "n") {
-      console.log("Exited the app!".green);
-      rl.close();
-    } else {
-      askQuestion(rl, body);
-    }
-  });
-};
