@@ -31,7 +31,9 @@ fetcher(url);
 
 const writeFile = (path, body) => fs.writeFile(path, body, (err) => {
   if (err) throw new Error("Could not write file!".red);
-  console.log("The file has been saved!".green);
+  fs.stat(path, (error, stats) => {
+    console.log(`Downloaded and saved ${stats["size"]} bytes to ${path}!`.green);
+  });
 });
 
 const askQuestion = (rl, body) => {
