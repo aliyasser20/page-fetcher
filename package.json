@@ -1,0 +1,25 @@
+{
+  "name": "page-fetcher",
+  "version": "1.0.0",
+  "description": "",
+  "main": "fetcher.js",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aliyasser20/page-fetcher.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aliyasser20/page-fetcher/issues"
+  },
+  "homepage": "https://github.com/aliyasser20/page-fetcher#readme"
+}
