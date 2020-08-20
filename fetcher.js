@@ -2,7 +2,7 @@ const request = require("request");
 const url = process.argv[2];
 const filePath = process.argv[3];
 const fs = require("fs");
-const colors = require("colors");
+// const colors = require("colors");
 
 
 const fetcher = (url) => {
@@ -52,3 +52,34 @@ const askQuestion = (rl, body) => {
     }
   });
 };
+
+
+
+
+/**************LHL Code***********************/
+const fetchAndSave = function(url, localPath) {
+  request(url, (error, response, body) => {
+    if (error || response.statusCode !== 200) {
+      console.log("Failed to download resource: ", error);
+      return;
+    }
+    // Optional: it's okay if students don't bother checking the http response code for this exercise.
+    fs.writeFile(localPath, body, error => {
+      if (error) {
+        console.log("Failed to write to localPath: ", localPath);
+      } else {
+        console.log(
+          `Downloaded and saved ${body.length} bytes to ${localPath}`
+        );
+      }
+    });
+  });
+};
+
+if (!url || !filePath) {
+  console.log("Two parameters required...");
+  console.log("Usage: node fetcher.js <url> <local-path>");
+} else {
+  fetchAndSave(url, filePath);
+}
+
